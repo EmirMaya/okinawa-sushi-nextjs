@@ -1,5 +1,7 @@
 import { Roboto } from 'next/font/google'
 import './globals.css'
+import Header from '../components/layout/Header';
+import { AppProvider } from '@/components/AppContext';
 
 const roboto = Roboto({ subsets: ['latin'], weight: ['400', '500', '700'] })
 
@@ -13,8 +15,13 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={roboto.className}>
         <main className='max-w-4xl mx-auto border'>
-          {children}
-
+          <AppProvider>
+            <Header />
+            {children}
+            <footer className='border-t border-violet-300 p-8 text-center text-neutral-500'>
+              &copy; Okinawa Sushi 2023 todos los derechos reservados.
+            </footer>
+          </AppProvider>
         </main>
 
       </body>

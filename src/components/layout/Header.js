@@ -1,4 +1,5 @@
 'use client';
+import { signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
 
@@ -8,6 +9,15 @@ export default function Header() {
     const handleMobileMenuToggle = () => {
         setIsMobileMenuOpen(!isMobileMenuOpen);
     };
+
+    const session = useSession();
+    // console.log(session);
+    const status = session?.status;
+    const userData = session.data?.user;
+    let userName = userData?.name || userData?.email;
+    if(userName && userName.includes(' ')) {
+        userName = userName.split(' ')[0] //traigo solo lo de antes del espacio, osea digamos el nombre
+    }
 
     useEffect(() => {
         const handleResize = () => {
@@ -25,6 +35,8 @@ export default function Header() {
             window.removeEventListener('resize', handleResize);
         };
     }, []); // El array vacío asegura que useEffect se ejecute solo una vez al montar el componente
+
+
 
     return (
         <header className='flex flex-col items-center justify-between'>
@@ -44,7 +56,29 @@ export default function Header() {
                 <Link href={''}>Menu</Link>
                 <Link href={''}>About</Link>
                 <Link href={''}>Contact</Link>
-                <Link className='bg-rose-300 px-4 py-2 rounded-sm hover:bg-rose-500 hover:text-neutral-200' href={''}>Login</Link>
+                {status === 'authenticated' && (
+
+                    <>
+                        <Link className='whitespace-nowrap' href={'/profile'}>
+                            Hola, {userName}
+                            </Link>
+                        <button
+                            onClick={() => signOut()}
+                            className='bg-rose-300 px-4 py-2 rounded-sm hover:bg-rose-500 hover:text-neutral-200'
+                        >
+                            Logout
+                        </button>
+                    </>
+
+                )}
+
+                {status === 'unauthenticated' && (
+                    <>
+                        <Link href={'/login'}>Login</Link>
+                        <Link className='bg-rose-300 px-4 py-2 rounded-sm hover:bg-rose-500 hover:text-neutral-200' href={'/register'}>Register</Link>
+                    </>
+                )}
+
             </nav>
         </header>
     );
