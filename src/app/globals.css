@@ -4,18 +4,33 @@
 
 input[type='email'],
 input[type='password'],
+input[type='tel'],
 input[type='text'] {
-    @apply block w-full my-4 rounded-sm;
+    @apply block w-full mb-4 rounded-sm;
     @apply border p-2 border-neutral-500 bg-neutral-100;
 
 }
 
+label {
+    @apply text-xs text-neutral-500;
+}
+
 input[type='email']:disabled,
 input[type='password']:disabled,
+input[type='tel']:disabled,
 input[type='text']:disabled {
     @apply bg-neutral-300 border-0 text-neutral-400;
 }
 
-button[type='submit']:disabled, .submit:disabled{
+button[type='submit']:disabled,
+.submit:disabled {
     @apply cursor-not-allowed bg-rose-200;
+}
+
+div.tabs>* {
+    @apply bg-rose-200 rounded-sm px-4 py-2  text-xs;
+}
+
+div.tabs>*.active {
+    @apply bg-rose-400 rounded-sm px-4 py-2 text-white text-xs;
 }

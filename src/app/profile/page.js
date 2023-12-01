@@ -1,18 +1,71 @@
 'use client';
 import { useSession } from "next-auth/react"
-import Image from "next/image";
 import { redirect } from "next/navigation";
-import Camera from "@/components/icons/Camera";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import UserLinks from "@/components/layout/UserLinks";
+import EditableImage from "../../components/layout/EditableImage";
+
 
 export default function ProfilePage() {
+
     const session = useSession();
     const { status } = session;
-    const [userName, setUserName] = useState(session?.data?.user?.name || "");
+    const [userName, setUserName] = useState("");
+    const [phone, setPhone] = useState(session?.data?.phone || ''); // Inicializa con el valor del teléfono si está disponible, de lo contrario, usa una cadena vacía
+    const [streetAddress, setStreetAddress] = useState('');
+    const [isAdmin, setIsAdmin] = useState(false);
+    const [profileFetched, setProfileFetched] = useState(false);
+    const [userImage, setUserImage] = useState('');
+    useEffect(() => {
+        if (status === 'authenticated') {
+            setUserName(session?.data?.user?.name);
+            fetch('/api/profile').then(response => {
+                response.json().then(data => {
+                    setPhone(data.phone);
+                    setStreetAddress(data.streetAddress);
+                    setIsAdmin(data.admin);
+                    setUserImage(data.image);
+                    setProfileFetched(true);
+                });
+            });
+        }
+    }, [session, status])
 
-    if (status === 'loading') {
+    const handleProfileUpdate = async e => {
+        e.preventDefault();
+
+        const savingPromise = new Promise(async (resolve, reject) => {
+            const response = await fetch('/api/profile', {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    name: userName,
+                    streetAddress,
+                    phone,
+                }),
+            });
+            if (response.ok)
+                resolve()
+            else
+                reject()
+        });
+
+        await toast.promise(savingPromise, {
+            loading: 'Guardando...',
+            success: '¡Guardado!',
+            error: 'Error, intenta más tarde',
+        });
+
+    }
+
+
+
+
+
+    if (status === 'loading' || !profileFetched) {
         return (
-            <div className="flex justify-center items-center h-screen">
+            <div className="p-2 flex justify-center bg-violet-100 items-center h-screen">
                 <div className="border-t-4 border-violet-500 border-solid rounded-full animate-spin h-16 w-16 border-t-transparent"></div>
             </div>
         )
@@ -22,31 +75,40 @@ export default function ProfilePage() {
         return redirect('/login');
     }
 
-    const userImage = session?.data.user.image;
+
 
     return (
-        <section className='mt-8'>
-            <h1 className='text-center text-violet-500 text-3xl font-semibold'>Mi cuenta</h1>
-            <form className='max-w-xs mx-auto'>
-                <div className='flex gap-2 items-center justify-center w-full'>
-                    <div className="p-2 rounded-full flex flex-col items-center gap-2">
-                        <Image className='rounded-full' src={userImage} width={64} height={64} alt={'foto de perfil'} />
-                        <button className="rounded-sm py-0.5 px-4 bg-neutral-300">
-                            <Camera />
-                        </button>
-                    </div>
-                    <div className="w-full">
-                        <input type='text' placeholder="Nombre y Apellido" />
+        <section className='my-8'>
+
+            <UserLinks isAdmin={isAdmin} />
+
+            <div className='max-w-xs mx-auto'>
+
+
+                <div className='flex gap-2 items-start justify-center w-full'>
+                    <EditableImage link={userImage} setLink={setUserImage} />
+                    <form className="w-full " onSubmit={handleProfileUpdate}>
+                        <label>Usuario</label>
+                        <input type='text' value={userName} onChange={e => setUserName(e.target.value)} placeholder="Nombre y Apellido" />
+                        <label>Email</label>
                         <input type='email' disabled={true} value={session.data.user.email} />
+                        <label>Teléfono</label>
+                        <input type="tel" placeholder="N° Teléfono"
+                            value={phone} onChange={e => setPhone(e.target.value)}
+                        />
+                        <label>Dirección</label>
+                        <input type="text" placeholder="Dirección"
+                            value={streetAddress} onChange={e => setStreetAddress(e.target.value)}
+                        />
                         <button
                             className='bg-rose-300 px-4 py-2 rounded-sm hover:bg-rose-500 hover:text-neutral-200'
                             type="submit"
                         >
                             Guardar
                         </button>
-                    </div>
+                    </form>
                 </div>
-            </form>
+            </div>
         </section>
     )
 }
