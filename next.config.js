@@ -8,7 +8,7 @@ const nextConfig = {
 
             }
         ],
-        domains: ['i.postimg.cc', '*.postimg.cc', '*.googleusercontent.com'],
+        domains: ['i.postimg.cc', '*.postimg.cc',],
 
     }
 }

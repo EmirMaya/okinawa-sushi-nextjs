@@ -6,37 +6,32 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import LeftArrow from '@/components/icons/LeftArrow';
 import { redirect, useParams } from "next/navigation";
+import MenuItemForm from "@/components/layout/MenuItemForm";
 
 export default function EditMenuItemPage() {
 
     const { loading: profileLoading, data: profileData } = useProfile();
     const { id } = useParams();
-    const [image, setImage] = useState('');
-    const [name, setName] = useState('');
-    const [description, setDescription] = useState('');
-    const [price, setPrice] = useState('');
+    const [menuItem, setMenuItem] = useState(null);
     const [redirectToMenu, setRedirectToMenu] = useState(false);
 
     useEffect(() => {
         fetch('/api/menu-items').then(response => {
             response.json().then(items => {
                 const item = items.find(item => item._id === id);
-                setImage(item.image);
-                setName(item.name);
-                setDescription(item.description);
-                setPrice(item.price);
+                setMenuItem(item);
             });
         });
     }, []);
 
 
-    const handleFormSubmit = async e => {
+    const handleFormSubmit = async (e, data) => {
         e.preventDefault();
-        const data = { image, name, description, price, };
+        const item = { ...data, _id: id };
         const savingPromise = new Promise(async (resolve, reject) => {
             const response = await fetch('/api/menu-items', {
                 method: 'PUT',
-                body: JSON.stringify(data),
+                body: JSON.stringify(item),
                 headers: { 'Content-Type': 'application/json' },
             });
             if (response.ok)
@@ -51,10 +46,6 @@ export default function EditMenuItemPage() {
             error: 'Error, intenta más tarde',
         });
 
-        setName('');
-        setImage('');
-        setPrice('');
-        setDescription('');
         setRedirectToMenu(true);
     }
 
@@ -77,49 +68,8 @@ export default function EditMenuItemPage() {
                 href={'/menu-items'} >
                 <LeftArrow />
                 <span>Volver</span>
-
             </Link>
-            <form onSubmit={handleFormSubmit}>
-                <div className="flex items-center justify-center gap-2 ">
-
-                    <div className="grow">
-                        <label>Nombre del item</label>
-                        <input
-                            type="text"
-                            value={name}
-                            onChange={e => setName(e.target.value)}
-                        />
-                        <label>Descripción</label>
-                        <input
-                            type="text"
-                            value={description}
-                            onChange={e => setDescription(e.target.value)}
-                        />
-                        <label>Precio base</label>
-                        <input
-                            type="text"
-                            value={price}
-                            onChange={e => setPrice(e.target.value)}
-                        />
-                        <label>Url de la imagen</label>
-                        <input
-                            type="text"
-                            value={image}
-                            onChange={e => setImage(e.target.value)}
-                        />
-                    </div>
-
-                </div>
-                <div>
-                    <button
-                        type='submit'
-                        className='mt-2 text-sm px-5 py-3 bg-rose-300  rounded-sm hover:bg-rose-500 hover:text-neutral-200'
-                    >
-                        Crear
-                    </button>
-                </div>
-
-            </form>
+            <MenuItemForm menuItem={menuItem} onSubmit={handleFormSubmit} />
         </section>
     )
 }
