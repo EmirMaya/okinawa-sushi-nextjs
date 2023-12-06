@@ -16,11 +16,11 @@ export default function NewMenuItemPage() {
 
     const handleFormSubmit = async (e, data) => {
         e.preventDefault();
-        const data = { ...data };
+        const item = { ...data };
         const savingPromise = new Promise(async (resolve, reject) => {
             const response = await fetch('/api/menu-items', {
                 method: 'POST',
-                body: JSON.stringify(data),
+                body: JSON.stringify(item),
                 headers: { 'Content-Type': 'application/json' },
             });
             if (response.ok)
