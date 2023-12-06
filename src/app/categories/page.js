@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import UserLinks from '@/components/layout/UserLinks';
 import { useProfile } from '@/components/UseProfile';
 import toast from 'react-hot-toast';
-import Trash from '@/components/icons/Trash';
+import DeleteButton from '@/components/DeleteButton';
 
 
 export default function CategoriesPage() {
@@ -135,12 +135,8 @@ export default function CategoriesPage() {
                                         setCategoryName(category.name);
                                     }}
                                     className='bg-white rounded-sm px-2 py-1 hover:bg-rose-200' type='button'>Edit</button>
-                                <button
-                                    onClick={() => handleDeleteClick(category._id)}
-                                    className='bg-white rounded-sm py-1 px-2'
-                                    type='button'>
-                                    <Trash />
-                                </button>
+
+                                <DeleteButton label={''} onDelete={() => handleDeleteClick(category._id)} />
                             </div>
 
 

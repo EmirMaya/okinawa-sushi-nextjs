@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import MenuItemPriceProps from '@/components/layout/MenuItemPriceProps';
 
 export default function MenuItemForm({ onSubmit, menuItem }) {
@@ -7,11 +7,19 @@ export default function MenuItemForm({ onSubmit, menuItem }) {
     const [description, setDescription] = useState(menuItem?.description || '');
     const [price, setPrice] = useState(menuItem?.price || '');
     const [sizes, setSizes] = useState(menuItem?.sizes || []);
+    const [category, setCategory] = useState(menuItem?.category || '')
+    const [categories, setCategories] = useState([]);
 
-
+    useEffect(() => {
+        fetch('/api/categories').then(response => {
+            response.json().then(categories => {
+                setCategories(categories);
+            })
+        })
+    }, [])
 
     return (
-        <form onSubmit={e => onSubmit(e, { image, name, description, price, sizes })}>
+        <form onSubmit={e => onSubmit(e, { image, name, description, price, sizes, category })}>
             <div className="flex items-center justify-center gap-2 ">
                 <div className="grow">
                     <label>Nombre del item</label>
@@ -26,6 +34,12 @@ export default function MenuItemForm({ onSubmit, menuItem }) {
                         value={description}
                         onChange={e => setDescription(e.target.value)}
                     />
+                    <label>Categoría</label>
+                    <select value={category} onChange={e => setCategory(e.target.value)}>
+                        {categories?.length > 0 && categories?.map((category, index) => (
+                            <option key={index} value={category._id}>{category.name}</option>
+                        ))}
+                    </select>
                     <label>Precio base</label>
                     <input
                         type="text"
@@ -44,7 +58,7 @@ export default function MenuItemForm({ onSubmit, menuItem }) {
             <div>
                 <button
                     type='submit'
-                    className='mt-2 text-sm px-5 py-3 bg-rose-300  rounded-sm hover:bg-rose-500 hover:text-neutral-200'
+                    className='w-full text-base after:mt-2 mt-2 px-5 py-3 bg-rose-300  rounded-sm hover:bg-rose-500 hover:text-neutral-200'
                 >
                     Editar
                 </button>

@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 import LeftArrow from '@/components/icons/LeftArrow';
 import { redirect, useParams } from "next/navigation";
 import MenuItemForm from "@/components/layout/MenuItemForm";
+import DeleteButton from '@/components/DeleteButton';
 
 export default function EditMenuItemPage() {
 
@@ -49,6 +50,26 @@ export default function EditMenuItemPage() {
         setRedirectToMenu(true);
     }
 
+    const handleDeleteClick = async () => {
+        const promise = new Promise(async (resolve, reject) => {
+            const response = await fetch('/api/menu-items?_id=' + id, {
+                method: 'DELETE',
+            });
+            if (response.ok) {
+                resolve();
+            } else {
+                reject();
+            }
+        });
+        await toast.promise(promise, {
+            loading: 'Eliminando...',
+            success: 'Item eliminado',
+            error: 'Error, intenta de nuevo',
+        });
+
+        setRedirectToMenu(true);
+    }
+
     if (redirectToMenu) return redirect('/menu-items');
 
     if (profileLoading) {
@@ -70,6 +91,10 @@ export default function EditMenuItemPage() {
                 <span>Volver</span>
             </Link>
             <MenuItemForm menuItem={menuItem} onSubmit={handleFormSubmit} />
+            <div className='w-full mt-2' >
+                <DeleteButton label={'Eliminar item'} onDelete={handleDeleteClick} />
+
+            </div>
         </section>
     )
 }

@@ -23,3 +23,11 @@ export const GET = async (req) => {
         await MenuItem.find()
     )
 }
+
+export const DELETE = async (req) => {
+    mongoose.connect(process.env.MONGO_URL);
+    const url = new URL(req.url);
+    const _id = url.searchParams.get('_id');
+    await MenuItem.deleteOne({ _id });
+    return Response.json(true);
+}

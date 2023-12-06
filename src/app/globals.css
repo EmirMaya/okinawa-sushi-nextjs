@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+select,
 input[type='email'],
 input[type='password'],
 input[type='tel'],
@@ -28,7 +29,7 @@ button[type='submit']:disabled,
 }
 
 div.tabs>* {
-    @apply bg-rose-200 rounded-sm px-4 py-2  text-xs;
+    @apply bg-rose-200 rounded-sm px-4 py-2 text-xs;
 }
 
 div.tabs>*.active {

@@ -5,12 +5,12 @@ import { usePathname } from "next/navigation";
 const UserLinks = ({ isAdmin }) => {
     const path = usePathname();
     return (
-        <div className="flex justify-center mb-4 gap-2 tabs">
+        <div className="flex justify-center items-center mb-4 gap-1 tabs">
             <Link
                 className={path === '/profile' ? 'active' : ''}
                 href={'/profile'}
             >
-                Mi cuenta
+                Cuenta
             </Link>
             {isAdmin && (
                 <>
@@ -27,10 +27,16 @@ const UserLinks = ({ isAdmin }) => {
                         Menu
                     </Link>
                     <Link
-                        className={path === '/users' ? 'active' : ''}
+                        className={path.includes('/users') ? 'active' : ''}
                         href={'/users'}
                     >
                         Usuarios
+                    </Link>
+                    <Link
+                        className={path === '/orders' ? 'active' : ''}
+                        href={'/orders'}
+                    >
+                        Órdenes
                     </Link>
                 </>
             )}
