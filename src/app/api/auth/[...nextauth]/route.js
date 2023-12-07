@@ -12,6 +12,7 @@ import { UserInfo } from "@/models/UserInfo";
 
 export const authOptions = {
   secret: process.env.SECRET,
+  // allowDangerousEmailAccountLinking: true ,
   adapter: MongoDBAdapter(clientPromise),
   providers: [
     GoogleProvider({
@@ -43,7 +44,7 @@ export const authOptions = {
         // Return null if user data could not be retrieved
         return null;
       },
-    }),
+    }),  
   ],
 };
 
