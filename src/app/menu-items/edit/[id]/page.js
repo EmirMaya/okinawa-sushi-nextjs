@@ -20,7 +20,9 @@ export default function EditMenuItemPage() {
         fetch('/api/menu-items').then(response => {
             response.json().then(items => {
                 const item = items.find(item => item._id === id);
+                
                 setMenuItem(item);
+                
             });
         });
     }, []);
@@ -42,8 +44,8 @@ export default function EditMenuItemPage() {
         });
 
         await toast.promise(savingPromise, {
-            loading: 'Guardando categoría...',
-            success: '¡Categoría guardada!',
+            loading: 'Guardando ...',
+            success: '¡Guardado!',
             error: 'Error, intenta más tarde',
         });
 

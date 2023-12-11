@@ -11,7 +11,7 @@ export default function Header() {
     };
 
     const session = useSession();
-    // console.log(session);
+
     const status = session?.status;
     const userData = session.data?.user;
     let userName = userData?.name || userData?.email;
@@ -53,9 +53,9 @@ export default function Header() {
             </div>
             <nav className={`w-full pr-8 flex flex-col md:flex-row items-end gap-8 text-neutral-600 font-semibold transition-all duration-300 ${isMobileMenuOpen ? 'h-auto' : 'h-0 overflow-hidden'}`}>
                 <Link href={''}>Home</Link>
-                <Link href={''}>Menu</Link>
-                <Link href={''}>About</Link>
-                <Link href={''}>Contact</Link>
+                <Link href={'/menu'}>Menu</Link>
+                <Link href={'/#about'}>About</Link>
+                <Link href={'/#contact'}>Contact</Link>
                 {status === 'authenticated' && (
 
                     <>

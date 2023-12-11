@@ -44,14 +44,14 @@ export default function LoginPage() {
                     type='submit'
                     disabled={loginInProgress}
                 >
-                    Registrase
+                    Inicia Sesión
                 </button>
                 <p className='text-sm my-2 text-center text-neutral-500 w-full'>O inicia con provider</p>
                 <button type='button'
                     onClick={() => signIn('google', { callbackUrl: '/' })}
                     className='py-2 px-4 flex justify-center items-center gap-4 border rounder-sm border-neutral-300 w-full'>
                     <Image src={'/google.png'} alt={'google login'} width={'24'} height={'24'} />
-                    Registrarse con Google
+                   Iniciar con Google
                 </button>
                 <p className='text-center text-neutral-700 text-sm mt-2'>
                     ¿No tienes cuenta?{' '}

@@ -8,19 +8,24 @@ import LeftArrow from '@/components/icons/LeftArrow';
 import { redirect } from "next/navigation";
 import MenuItemForm from "@/components/layout/MenuItemForm";
 
+
 export default function NewMenuItemPage() {
-    const { loading: profileLoading, data: profileData } = useProfile();
-
     const [redirectToMenu, setRedirectToMenu] = useState(false);
-
+    const { loading: profileLoading, data: profileData } = useProfile();
 
     const handleFormSubmit = async (e, data) => {
         e.preventDefault();
-        const item = { ...data };
+        // Verifica que data tenga la propiedad "category"
+        if (!data.category) {
+            console.log(data.category);
+            // Puedes manejar este caso específico según tus requisitos.
+            console.error('La propiedad "category" no está definida en los datos.');
+            return;
+        }
         const savingPromise = new Promise(async (resolve, reject) => {
             const response = await fetch('/api/menu-items', {
                 method: 'POST',
-                body: JSON.stringify(item),
+                body: JSON.stringify(data),
                 headers: { 'Content-Type': 'application/json' },
             });
             if (response.ok)
@@ -30,8 +35,8 @@ export default function NewMenuItemPage() {
         });
 
         await toast.promise(savingPromise, {
-            loading: 'Guardando categoría...',
-            success: '¡Categoría guardada!',
+            loading: 'Guardando...',
+            success: '¡Guardado!',
             error: 'Error, intenta más tarde',
         });
 

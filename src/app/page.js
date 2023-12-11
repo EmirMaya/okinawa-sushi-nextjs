@@ -6,12 +6,11 @@ import Link from 'next/link';
 
 export default function Home() {
   return (
-    <>
-      
+    <>  
       <Hero />
       <HomeMenu />
-      <section className='text-center my-16'>
-        <SectionHeaders
+      <section className='text-center my-16' id='about'>
+        <SectionHeaders 
           subHeader={'Nuestra historia'}
           mainHeader={'Acerca nuestro'}
         />
@@ -34,7 +33,7 @@ export default function Home() {
 
         </div>
       </section>
-      <section className='my-6 text-center'>
+      <section className='my-6 text-center' id='contact'>
         <SectionHeaders
           subHeader={'Don\'t hesitate'}
           mainHeader={'Contact us'}

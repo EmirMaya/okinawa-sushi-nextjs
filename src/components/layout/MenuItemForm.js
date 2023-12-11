@@ -14,9 +14,9 @@ export default function MenuItemForm({ onSubmit, menuItem }) {
         fetch('/api/categories').then(response => {
             response.json().then(categories => {
                 setCategories(categories);
-            })
-        })
-    }, [])
+            });
+        });
+    }, []);
 
     return (
         <form onSubmit={e => onSubmit(e, { image, name, description, price, sizes, category })}>
@@ -36,6 +36,7 @@ export default function MenuItemForm({ onSubmit, menuItem }) {
                     />
                     <label>Categoría</label>
                     <select value={category} onChange={e => setCategory(e.target.value)}>
+                        <option value="">Seleccionar categoría</option>
                         {categories?.length > 0 && categories?.map((category, index) => (
                             <option key={index} value={category._id}>{category.name}</option>
                         ))}
@@ -60,7 +61,7 @@ export default function MenuItemForm({ onSubmit, menuItem }) {
                     type='submit'
                     className='w-full text-base after:mt-2 mt-2 px-5 py-3 bg-rose-300  rounded-sm hover:bg-rose-500 hover:text-neutral-200'
                 >
-                    Editar
+                    Guardar
                 </button>
             </div>
         </form >
