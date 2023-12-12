@@ -1,7 +1,8 @@
 'use client';
 import { signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { CartContext } from '@/components/AppContext';
 
 export default function Header() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -11,11 +12,11 @@ export default function Header() {
     };
 
     const session = useSession();
-
+    const { cartProducts } = useContext(CartContext);
     const status = session?.status;
     const userData = session.data?.user;
     let userName = userData?.name || userData?.email;
-    if(userName && userName.includes(' ')) {
+    if (userName && userName.includes(' ')) {
         userName = userName.split(' ')[0] //traigo solo lo de antes del espacio, osea digamos el nombre
     }
 
@@ -52,6 +53,7 @@ export default function Header() {
                 </div>
             </div>
             <nav className={`w-full pr-8 flex flex-col md:flex-row items-end gap-8 text-neutral-600 font-semibold transition-all duration-300 ${isMobileMenuOpen ? 'h-auto' : 'h-0 overflow-hidden'}`}>
+                <Link href={'/cart'}>Cart ({cartProducts.length})</Link>
                 <Link href={''}>Home</Link>
                 <Link href={'/menu'}>Menu</Link>
                 <Link href={'/#about'}>About</Link>
@@ -61,7 +63,7 @@ export default function Header() {
                     <>
                         <Link className='whitespace-nowrap' href={'/profile'}>
                             Hola, {userName}
-                            </Link>
+                        </Link>
                         <button
                             onClick={() => signOut()}
                             className='bg-rose-300 px-4 py-2 rounded-sm hover:bg-rose-500 hover:text-neutral-200'
@@ -78,6 +80,8 @@ export default function Header() {
                         <Link className='bg-rose-300 px-4 py-2 rounded-sm hover:bg-rose-500 hover:text-neutral-200' href={'/register'}>Register</Link>
                     </>
                 )}
+
+
 
             </nav>
         </header>

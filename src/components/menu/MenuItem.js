@@ -1,22 +1,51 @@
+'use client';
 import Image from 'next/image';
+import { useContext, useState } from 'react';
+import { CartContext } from '@/components/AppContext';
+import toast from 'react-hot-toast';
+import MenuItemTile from '@/components/menu/MenuItemTile';
 
-export default function MenuItem({
-    image, name, description, price,
-    sizes,
-}) {
+export default function MenuItem(menuItem) {
+    const {
+        image, name, description, price,
+        sizes,
+    } = menuItem;
+    const [showPopup, setShowPopup] = useState(false);
+    const { addToCart } = useContext(CartContext);
+
+    const handleAddToCartClick = () => {
+        if (sizes.length === 0) {
+            addToCart(menuItem);
+            toast.success('¡Agregado al carrito!')
+        } else {
+            setShowPopup(true);
+        }
+    }
+
     return (
-        <div className='bg-neutral-50 hover:border hover:shadow-lg flex flex-col justify-center rounded-sm text-center shadow-sm'>
-            <Image className='w-full' src={image} width={'100'} height={'100'} alt={'niguiri'} />
-            <div className='p-4'>
-                <h4 className='text-violet-500 font-semibold my-2'>{name}</h4>
-                <p className='text-neutral-600 text-xs line-clamp-3'>{description}</p>
-                <p className='font-semibold text-xs text-neutral-700 my-2'>$ {price}</p>
-                <button
-                    onClick={() => { }}
-                    className='text-xs px-2 py-2 bg-rose-300  rounded-sm hover:bg-rose-500 hover:text-neutral-200'>
-                    Agregar al carrito
-                </button>
-            </div>
-        </div>
+        <>
+            {showPopup && (
+                <div className='fixed inset-0 bg-black/80 flex justify-center items-center '>
+                    <div className='bg-white p-4 rounded-sm'>
+                        <Image src={image} alt={name} width={300} height={200} />
+                        <h2 className='text-center font-bold'>{name}</h2>
+                        <p>{description}</p>
+                        {sizes?.length > 0 && (
+                            <div>
+                                <h3>Agregar más piezas</h3>
+                                {sizes.map((size, index) => (
+                                    <label key={index} className='block py-1 flex items-center gap-2'>
+                                        <input type='radio' />
+                                        {size.name}   $ {price + size.price}
+                                    </label>
+                                ))}
+                            </div>
+                        )}
+                    </div>
+                </div>
+            )}
+            <MenuItemTile onAddToCart={handleAddToCartClick} {...menuItem} />
+        </>
+
     )
 }
