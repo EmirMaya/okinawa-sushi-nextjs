@@ -3,6 +3,7 @@ import { signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
 import React, { useState, useEffect, useContext } from 'react';
 import { CartContext } from '@/components/AppContext';
+import Cart from '@/components/icons/Cart';
 
 export default function Header() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -53,7 +54,13 @@ export default function Header() {
                 </div>
             </div>
             <nav className={`w-full pr-8 flex flex-col md:flex-row items-end gap-8 text-neutral-600 font-semibold transition-all duration-300 ${isMobileMenuOpen ? 'h-auto' : 'h-0 overflow-hidden'}`}>
-                <Link href={'/cart'}>Cart ({cartProducts.length})</Link>
+                <Link className='flex items-center relative' href={'/cart'}>
+                    <Cart />
+                    <span className='absolute -top-2 -right-4 text-xs text-white py-1 px-2 rounded-full bg-violet-600 leading-3'>
+                        {cartProducts.length}
+                    </span>
+
+                </Link>
                 <Link href={''}>Home</Link>
                 <Link href={'/menu'}>Menu</Link>
                 <Link href={'/#about'}>About</Link>
