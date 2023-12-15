@@ -21,12 +21,19 @@ export default function Header() {
         userName = userName.split(' ')[0] //traigo solo lo de antes del espacio, osea digamos el nombre
     }
 
+    // Función para determinar si el menú debería estar abierto inicialmente
+    const shouldMenuBeOpen = () => {
+        return window.innerWidth >= 1024;
+    };
+
+
     useEffect(() => {
+        // Establecer el estado inicial al cargar la página
+        setIsMobileMenuOpen(shouldMenuBeOpen());
+
         const handleResize = () => {
-            // Cierra el menú desplegable cuando el tamaño de la pantalla sea mayor que el de una tablet
-            if (window.innerWidth > 768) {
-                setIsMobileMenuOpen(false);
-            }
+            // Abre el menú desplegable cuando el tamaño de la pantalla es menor o igual a 1024
+            setIsMobileMenuOpen(window.innerWidth >= 1024);
         };
 
         // Agrega el listener para manejar el cambio de tamaño de la pantalla
@@ -40,28 +47,31 @@ export default function Header() {
 
 
 
+
     return (
         <header className='flex flex-col items-center justify-between'>
             <div className='flex items-center justify-between w-full px-8 py-4'>
-                <Link className='text-violet-500 font-semibold text-xl' href='/'>OKINAWA SUSHI</Link>
-                <div className='md:hidden'>
-                    <button onClick={handleMobileMenuToggle}>
+                <Link className='text-violet-500 font-semibold text-xl lg:text-2xl' href='/'>OKINAWA SUSHI</Link>
+                <div className='flex items-center'>
+                    <Link className='flex items-center relative mr-6' href={'/cart'}>
+                        <Cart />
+                        <span className='absolute -top-2 -right-4 text-xs text-white py-1 px-2 rounded-full bg-violet-600 leading-3'>
+                            {cartProducts.length}
+                        </span>
+                    </Link>
+                    <button className='lg:hidden' onClick={handleMobileMenuToggle}>
                         {/* Aquí puedes poner un ícono de menú, por ejemplo: */}
                         <svg fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" className="w-6 h-6">
                             <path d="M4 6h16M4 12h16m-7 6h7"></path>
                         </svg>
                     </button>
+                  
                 </div>
             </div>
-            <nav className={`w-full pr-8 flex flex-col md:flex-row items-end gap-8 text-neutral-600 font-semibold transition-all duration-300 ${isMobileMenuOpen ? 'h-auto' : 'h-0 overflow-hidden'}`}>
-                <Link className='flex items-center relative' href={'/cart'}>
-                    <Cart />
-                    <span className='absolute -top-2 -right-4 text-xs text-white py-1 px-2 rounded-full bg-violet-600 leading-3'>
-                        {cartProducts.length}
-                    </span>
-
-                </Link>
-                <Link href={''}>Home</Link>
+            <nav
+                className={`w-full border-t shadow-md border-t-neutral-400 pr-8 flex flex-col  items-end gap-8 text-neutral-600 font-semibold lg:top-0 lg:z-10  lg:flex-row lg:justify-center lg:items-center
+                 ${isMobileMenuOpen ? 'h-auto py-6 transition-all duration-1000 lg:transition-none' : 'h-0 overflow-hidden'}`}>
+                <Link href={'/'}>Home</Link>
                 <Link href={'/menu'}>Menu</Link>
                 <Link href={'/#about'}>About</Link>
                 <Link href={'/#contact'}>Contact</Link>
@@ -87,8 +97,6 @@ export default function Header() {
                         <Link className='bg-rose-300 px-4 py-2 rounded-sm hover:bg-rose-500 hover:text-neutral-200' href={'/register'}>Register</Link>
                     </>
                 )}
-
-
 
             </nav>
         </header>

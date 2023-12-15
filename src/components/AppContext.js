@@ -6,10 +6,8 @@ export const CartContext = createContext({});
 
 export function cartProductPrice(cartProduct) {
     let price = cartProduct.price;
-    console.info('cart product', cartProduct);
     if (cartProduct.size) {
-        console.info('inside if', cartProduct)
-        price += cartProduct.size.totalPrice;
+        price += cartProduct.size.price;
     }
     return price;
 }
@@ -44,9 +42,10 @@ export function AppProvider({ children }) {
         }
     }
 
-    const addToCart = (product, size = null, extras = []) => {
+    const addToCart = (product, size, ) => {
         setCartProducts(prevProducts => {
-            const cartProduct = { ...product, size, extras };
+            const cartProduct = { ...product, size,};
+            console.log(cartProduct.size);
             const newProducts = [...prevProducts, cartProduct];
             saveCartProductsToLocalStorage(newProducts);
             return newProducts;

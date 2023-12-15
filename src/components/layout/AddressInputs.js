@@ -1,5 +1,6 @@
 export default function AddressInputs({addressProps,setAddressProp,disabled=false}) {
     const {phone, streetAddress,} = addressProps;
+    // console.log(phone);
     return (
       <>
         <label>Phone</label>

@@ -23,7 +23,7 @@ export default function CartPage() {
     }, []);
 
     useEffect(() => {
-        if (profileData?.city) {
+        if (profileData) {
             const { phone, streetAddress } = profileData;
             const profileAddress = {
                 phone, streetAddress
@@ -34,7 +34,6 @@ export default function CartPage() {
 
     let subtotal = 0;
     for (const p of cartProducts) {
-        console.info('carts product price', cartProductPrice(p))
         subtotal += cartProductPrice(p);
     }
     const handleAddressChange = (propName, value) => {
@@ -104,8 +103,8 @@ export default function CartPage() {
                         </div>
                         <div className="font-semibold py-2 text-left">
                             ${subtotal} <br />
-                            $5<br />
-                            ${subtotal + 5}
+                            $300<br />
+                            ${subtotal + 300}
                         </div>
                     </div>
                 </div>
@@ -116,7 +115,10 @@ export default function CartPage() {
                             addressProps={address}
                             setAddressProp={handleAddressChange}
                         />
-                        <button type="submit">Pay ${subtotal + 5}</button>
+                        <button
+                            className='w-full font-semibold mt-2 bg-rose-300 px-4 py-2 rounded-sm hover:bg-rose-500 hover:text-neutral-200'
+                            type="submit"
+                        >Pay ${subtotal + 300}</button>
                     </form>
                 </div>
             </div>

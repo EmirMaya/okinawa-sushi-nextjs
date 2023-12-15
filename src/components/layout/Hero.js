@@ -3,8 +3,8 @@ import RightArrow from '@/components/icons/RightArrow';
 
 export default function Hero() {
     return (
-        <section className='mt-8 grid grid-cols-2'>
-            <div className='ml-3'>
+        <section className='my-8 mx-4 lg:mx-14 grid grid-cols-2'>
+            <div className='flex flex-col '>
                 <h1 className='text-3xl font-semibold text-neutral-800'>La vida mejora cuando comes <span className='text-violet-500'>sushi</span></h1>
                 <p className='mt-4 text-neutral-600 text-sm'>
                     Cambia los sabores occidentales  clásicos
@@ -23,7 +23,7 @@ export default function Hero() {
 
             </div>
 
-            <div className='relative'>
+            <div className='relative lg:w-full'>
                 <Image src={'/sushi-first.png'} layout={'fill'} alt={'sushi'} objectFit={'contain'} />
             </div>
 

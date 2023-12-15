@@ -1,6 +1,6 @@
 'use client';
 import Image from 'next/image';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { CartContext } from '@/components/AppContext';
 import toast from 'react-hot-toast';
 import MenuItemTile from '@/components/menu/MenuItemTile';
@@ -20,7 +20,7 @@ export default function MenuItem(menuItem) {
     const handleAddToCartClick = () => {
         if (sizes.length === 0) {
             addToCart(menuItem);
-            toast.success('¡Agregado al carrito!')
+            toast.success(`¡Agregado al carrito! ${menuItem.price}`)
         } else {
             setShowPopup(true);
         }
@@ -31,10 +31,10 @@ export default function MenuItem(menuItem) {
             const itemWithSize = {
                 ...menuItem,
                 size: selectedSize,
-                totalPrice: price + selectedSize.price
+                price: price + selectedSize.price,
             };
             addToCart(itemWithSize);
-            toast.success(`¡Agregado al carrito! Precio total: ${itemWithSize.totalPrice}`);
+            toast.success(`¡Agregado al carrito! Precio total: ${itemWithSize.price}`);
             setShowPopup(false);
         }
     }
@@ -59,7 +59,7 @@ export default function MenuItem(menuItem) {
                                 <div>
                                     <h3>Agregar más piezas</h3>
                                     {sizes.map((size, index) => (
-                                        <label key={index} className='block py-1 flex items-center gap-2'>
+                                        <label key={index} className='py-1 flex items-center gap-2'>
                                             <input
                                                 onChange={() => setSelectedSize(size)}
                                                 type='radio'
