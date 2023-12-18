@@ -44,7 +44,7 @@ export default function MenuItem(menuItem) {
             {showPopup && (
                 <div
                     onClick={() => setShowPopup(false)}
-                    className='fixed inset-0 bg-black/80 flex justify-center items-center '>
+                    className='fixed inset-0 bg-black/80 flex justify-center items-center z-10'>
                     <div
                         onClick={e => e.stopPropagation()}
                         className='bg-white p-2 rounded-sm max-h-screen '>
@@ -52,14 +52,14 @@ export default function MenuItem(menuItem) {
                             className='overflow-scroll p-2 flex flex-col justify-center text-center'
                             style={{ maxHeight: 'calc(100vh-80px)' }}
                         >
-                            <Image src={image} alt={name} width={400} height={200} />
-                            <h2 className='text-center font-bold'>{name}</h2>
-                            <p>{description}</p>
+                            <Image className='w-full h-56 object-cover' src={image} alt={name} width={500} height={500} />
+                            <h2 className='text-center font-bold mt-4 md:text-lg'>{name}</h2>
+                            <p className='text-neutral-600 my-3'>{description}</p>
                             {sizes?.length > 0 && (
                                 <div>
-                                    <h3>Agregar más piezas</h3>
+                                    <h3 className='text-violet-500 font-semibold'>Agregar más piezas</h3>
                                     {sizes.map((size, index) => (
-                                        <label key={index} className='py-1 flex items-center gap-2'>
+                                        <label key={index} className='py-1 flex items-center gap-2 md:text-base'>
                                             <input
                                                 onChange={() => setSelectedSize(size)}
                                                 type='radio'

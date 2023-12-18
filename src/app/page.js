@@ -15,7 +15,7 @@ export default function Home() {
           mainHeader={'Acerca nuestro'}
         />
 
-        <div className='text-neutral-600 max-w-2xl text-center m-4 text-sm flex flex-col gap-4'>
+        <div className='text-neutral-600 max-w-2xl md:max-w-full md:mx-10 md:text-base text-center m-4 text-sm flex flex-col justify-center items-center gap-4'>
           <p>
             Bienvenido a Okinawa Sushi, donde la pasión por la auténtica cocina japonesa
             se fusiona con la creatividad y la frescura de los ingredientes.

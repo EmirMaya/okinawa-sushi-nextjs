@@ -16,12 +16,12 @@ export default function HomeMenu() {
         });
     }, [])
     return (
-        <section className='mt-6 mx-4'>
+        <section className='mt-6 mx-4 md:flex md:justify-center md:flex-col md:items-center'>
             <div className='text-center'>
                 <SectionHeaders subHeader={'Chek out'} mainHeader={'Más vendidos'} />
             </div>
 
-            <div className='my-4 grid grid-cols-2 gap-4'>
+            <div className='my-4 grid grid-cols-2 md:grid-cols-4 md:flex md:justify-center md:mx-14 gap-4'>
                 {bestSellers?.length > 0 && bestSellers.map((item, index) => (
                     <MenuItem key={index} {...item} />
                 ))}

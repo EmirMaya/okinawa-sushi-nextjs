@@ -82,7 +82,7 @@ export default function CategoriesPage() {
 
 
     return (
-        <section className='my-8'>
+        <section className='my-8 lg:max-w-3xl mx-auto'>
             <UserLinks isAdmin={profileData.admin} />
             <form onSubmit={handleCategorySubmit}>
                 <div className='flex justify-center items-center gap-2 mx-4'>

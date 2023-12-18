@@ -23,13 +23,13 @@ export default function MenuPage() {
     }, []);
 
     return (
-        <section className="my-8 mx-4">
+        <section className="my-8 mx-4 md:mx-14">
             {categories?.length > 0 && categories.map((category, index) => (
                 <div key={index}>
                     <div className="text-center my-8">
                         <SectionHeaders mainHeader={category.name} />
                     </div>
-                    <div className='mb-4 grid grid-cols-2 gap-4'>
+                    <div className='mb-4 grid grid-cols-2 md:grid-cols-4 gap-4'>
                         {menuItems.filter(menu => menu.category === category._id).map((item, index) => (
                             <div key={index}>
                                 <MenuItem {...item} />
