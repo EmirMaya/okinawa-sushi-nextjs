@@ -7,6 +7,7 @@ import NextAuth, { getServerSession } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import { MongoDBAdapter } from "@auth/mongodb-adapter"
+import { isAdmin } from "@/isAdmin/isAdmin";
 
 export const authOptions = {
   secret: process.env.SECRET,
