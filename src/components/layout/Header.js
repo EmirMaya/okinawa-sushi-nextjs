@@ -50,12 +50,12 @@ export default function Header() {
 
     return (
         <header className='flex flex-col items-center justify-between'>
-            <div className='flex items-center justify-between w-full px-8 py-4'>
-                <Link className='text-violet-500 font-semibold text-xl lg:text-2xl' href='/'>OKINAWA SUSHI</Link>
+            <div className='flex items-center justify-between w-full px-8 py-4 bg-violet-500'>
+                <Link className='text-white font-semibold text-xl lg:text-2xl' href='/'>OKINAWA SUSHI</Link>
                 <div className='flex items-center'>
                     <Link className='flex items-center relative mr-6' href={'/cart'}>
                         <Cart />
-                        <span className='absolute -top-2 -right-4 text-xs text-white py-1 px-2 rounded-full bg-violet-600 leading-3'>
+                        <span className='absolute -top-2 -right-4 text-xs text-white py-1 px-2 rounded-full  bg-rose-400 leading-3'>
                             {cartProducts.length}
                         </span>
                     </Link>
