@@ -48,7 +48,7 @@ const MenuItemPriceProps = ({ name, addLabel, props, setProps }) => {
                             <label>Nombre</label>
                             <input
                                 type="text"
-                                placeholder="Size name"
+                                placeholder="Cantidad"
                                 value={size.name}
                                 onChange={e => editProp(e, index, 'name')}
                             />
@@ -57,7 +57,7 @@ const MenuItemPriceProps = ({ name, addLabel, props, setProps }) => {
                             <label>Precio extra</label>
                             <input
                                 type="text"
-                                placeholder="Extra price"
+                                placeholder="Precio extra"
                                 value={size.price}
                                 onChange={e => editProp(e, index, 'price')}
                             />
