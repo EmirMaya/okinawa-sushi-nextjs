@@ -10,7 +10,7 @@ export default function HomeMenu() {
     useEffect(() => {
         fetch('/api/menu-items').then(res => {
             res.json().then(menuItems => {
-                const bestSellers = menuItems.slice(-3);
+                const bestSellers = menuItems.slice(-4);
                 setBestSellers(bestSellers);
             });
         });
@@ -18,10 +18,10 @@ export default function HomeMenu() {
     return (
         <section className='mt-6 mx-4 md:flex md:justify-center md:flex-col md:items-center'>
             <div className='text-center'>
-                <SectionHeaders subHeader={'Chek out'} mainHeader={'Más vendidos'} />
+                <SectionHeaders subHeader={'Nuestros'} mainHeader={'Más vendidos'} />
             </div>
 
-            <div className='my-4 grid grid-cols-2 md:grid-cols-4 md:flex md:justify-center md:mx-14 gap-4'>
+            <div className='my-4 mx-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4  md:mx-14 gap-4'>
                 {bestSellers?.length > 0 && bestSellers.map((item, index) => (
                     <MenuItem key={index} {...item} />
                 ))}

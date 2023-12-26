@@ -29,7 +29,7 @@ export default function MenuPage() {
                     <div className="text-center my-8">
                         <SectionHeaders mainHeader={category.name} />
                     </div>
-                    <div className='mb-4 grid grid-cols-2 md:grid-cols-4 gap-4'>
+                    <div className='mb-4 mx-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4'>
                         {menuItems.filter(menu => menu.category === category._id).map((item, index) => (
                             <div key={index}>
                                 <MenuItem {...item} />

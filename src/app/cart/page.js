@@ -118,7 +118,7 @@ export default function CartPage() {
                         <button
                             className='w-full font-semibold mt-2 bg-rose-300 px-4 py-2 rounded-sm hover:bg-rose-500 hover:text-neutral-200'
                             type="submit"
-                        >Pay ${subtotal + 300}</button>
+                        >Pagar ${subtotal + 300}</button>
                     </form>
                 </div>
             </div>

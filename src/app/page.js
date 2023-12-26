@@ -35,11 +35,11 @@ export default function Home() {
       </section>
       <section className='my-6 text-center' id='contact'>
         <SectionHeaders
-          subHeader={'Don\'t hesitate'}
-          mainHeader={'Contact us'}
+          subHeader={'No te olvides de'}
+          mainHeader={'Contactarnos'}
         />
-        <Link className='text-xl font-semibold text-rose-500' href='https://web.whatsapp.com/'>
-          +54 2602875688
+        <Link className='mt-4 text-xl font-semibold lg:text-3xl text-rose-500' href='https://web.whatsapp.com/'>
+          +54 2604376681
         </Link>
       </section>
 
