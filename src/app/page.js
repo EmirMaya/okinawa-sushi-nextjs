@@ -12,7 +12,7 @@ export default function Home() {
       <section className='text-center my-16' id='about'>
         <SectionHeaders 
           subHeader={'Nuestra historia'}
-          mainHeader={'Acerca nuestro'}
+          mainHeader={'Sobre nosotros'}
         />
 
         <div className='text-neutral-600 max-w-2xl md:max-w-full md:mx-10 md:text-base text-center m-4 text-sm flex flex-col justify-center items-center gap-4'>

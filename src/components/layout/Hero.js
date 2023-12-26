@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import RightArrow from '@/components/icons/RightArrow';
+import Link from 'next/link';
 
 export default function Hero() {
     return (
@@ -14,14 +15,14 @@ export default function Hero() {
                     Transforma los tradicionales sabores occidentales en algo fresco y completamente diferente.
                 </p>
                 <div className='flex gap-4 mt-4'>
-                    <button className='flex items-center text-sm gap-1 px-2 py-2 bg-rose-300  rounded-sm lg:text-base hover:bg-rose-500 hover:text-neutral-200'>
+                    <Link href={'/menu'} className='flex items-center text-sm gap-1 px-2 py-2 bg-rose-300  rounded-sm lg:text-base hover:bg-rose-500 hover:text-neutral-200'>
                         Pedir
                         <RightArrow />
-                    </button>
-                    <button className='flex gap-1 items-center text-sm lg:text-base text-neutral-600 font-semibold hover:text-neutral-800'>
+                    </Link>
+                    <Link href={'/#about'} className='flex gap-1 items-center text-sm lg:text-base text-neutral-600 font-semibold hover:text-neutral-800'>
                         Acerca de
                         <RightArrow />
-                    </button>
+                    </Link>
                 </div>
 
             </div>
